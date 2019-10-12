@@ -177,7 +177,7 @@ if ($_GET["id"] == "users") {
     $rChannels = getChannels();
     $rStreamingServers = getStreamingServers();
     $rActivity = Array();
-    $result = $db->query("SELECT `user_id`, COUNT(`activity_id`) AS `count` FROM `user_activity_now` GROUP BY `user_id`;");
+    $result = $db->query("SELECT `user_id`, COUNT(`activity_id`) AS `count` FROM `user_activity_now` GROUP BY `date_start`;");
     if (($result) && ($result->num_rows > 0)) {
         while ($row = $result->fetch_assoc()) {
             $rActivity[$row["user_id"]] = intval($row["count"]);
@@ -242,7 +242,12 @@ if ($_GET["id"] == "users") {
                 return "<img src='https://www.ip-tracker.org/images/ip-flags/".strtolower($d).".png'></img>";
             }
         ),
-        array('db' => 'pid', 'dt' => 7,
+		array('db' => 'date_start', 'dt' => 7,
+            'formatter' => function( $d, $row ) {
+                return date("d.m.Y  H:i:s", $d);
+            }
+        ),
+        array('db' => 'pid', 'dt' => 8,
             'formatter' => function( $d, $row ) {
                 return '<button type="button" class="btn btn-outline-warning waves-effect waves-light btn-xs" onClick="api('.$d.', \'kill\');""><i class="fas fa-hammer"></i></button>';
             }
