@@ -57,7 +57,7 @@ include "header.php";
                                             <th class="text-center">IP</th>
                                             <th class="text-center">Connections</th>
                                             <th class="text-center">Country</th>
-											<th class="text-center">Started</th>
+					    <th class="text-center">Started</th>
                                             <th class="text-center">Actions</th>
                                         </tr>
                                     </thead>
